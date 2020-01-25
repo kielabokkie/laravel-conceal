@@ -1,0 +1,31 @@
+{
+    "name": "kielabokkie/laravel-conceal",
+    "description": "Conceal data in a array or collection",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kielabokkie",
+            "email": "kielabokkie@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^5.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kielabokkie\\LaravelConceal\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kielabokkie\\LaravelConceal\\Tests\\": "tests"
+        }
+    }
+}
