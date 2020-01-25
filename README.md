@@ -1,6 +1,7 @@
 # Laravel Conceal
 
 [![Author](http://img.shields.io/badge/by-@kielabokkie-lightgrey.svg?style=flat-square)](https://twitter.com/kielabokkie)
+[![Build](https://img.shields.io/github/workflow/status/kielabokkie/laravel-conceal/run-tests/master?style=flat-square)](https://github.com/kielabokkie/laravel-conceal/actions)
 [![Packagist Version](https://img.shields.io/packagist/v/kielabokkie/laravel-conceal.svg?style=flat-square)](https://packagist.org/packages/kielabokkie/laravel-conceal)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
