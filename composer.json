@@ -1,6 +1,6 @@
 {
     "name": "kielabokkie/laravel-conceal",
-    "description": "Conceal data in a array or collection",
+    "description": "Conceal data in an array or collection",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "illuminate/support": "^5.8"
+        "illuminate/support": "^5.8|^6.0|^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"
