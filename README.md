@@ -20,7 +20,7 @@ $hide = ['password'];
 $output = conceal($data, $hide);
 ```
 
-Which will return the array with concealed password:
+Which will return the array with the password concealed:
 
 ```php
 [
@@ -35,4 +35,57 @@ Install the package via composer:
 
 ```
 composer require kielabokkie/laravel-conceal
+```
+
+## Package configuration
+
+This package has minimal configuration. All you can do at the moment is set the keys that are concealed by default. If you want to add your own defaults you can do that by publishing the config file by running the following command:
+
+```bash
+php artisan vendor:publish --provider="Kielabokkie\LaravelConceal\ConcealServiceProvider"
+```
+
+These are the contents of the file that will be published at `config/conceal.php`:
+
+```php
+return [
+    /*
+     * Array of keys that will be concealed automatically.
+     */
+    'defaults' => [
+        'password',
+        'password_confirmation',
+    ]
+];
+```
+
+## Usage
+
+Use the defaults configuration to conceal the password:
+
+```php
+$data = [
+    'username' => 'wouter',
+    'password' => 'secret'
+];
+
+$output = conceal($data);
+print_r($output);
+
+// Outputs: ['username' => 'wouter', 'password' => '********']
+```
+
+Set keys on the fly:
+
+```php
+$data = [
+    'api_key' => 'secret'
+];
+
+$hide = ['api_key'];
+
+$output = conceal($data, $hide);
+print_r($output);
+
+// Outputs: ['api_key' => '********']
 ```

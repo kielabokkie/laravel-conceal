@@ -2,7 +2,7 @@
 
 namespace Kielabokkie\LaravelConceal\Tests;
 
-use PHPUnit\Framework\TestCase;
+use Kielabokkie\LaravelConceal\Tests\TestCase;
 
 /**
  * phpcs:disable PSR1.Methods.CamelCapsMethodName
@@ -17,9 +17,7 @@ final class HelperTest extends TestCase
             'password' => 'secret'
         ];
 
-        $hide = ['password'];
-
-        $output = conceal($data, $hide);
+        $output = conceal($data);
 
         $this->assertEquals('wouter', $output['username']);
         $this->assertEquals('********', $output['password']);

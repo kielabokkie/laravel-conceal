@@ -15,6 +15,9 @@ class Concealer
      */
     public function conceal($input, array $keys = [])
     {
+        // Merge default keys with given keys
+        $keys = array_unique(array_merge(config('conceal.defaults'), $keys));
+
         foreach ($keys as $key) {
             if (Arr::get($input, $key)) {
                 Arr::set($input, $key, '********');
