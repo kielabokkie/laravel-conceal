@@ -5,7 +5,7 @@
 [![Packagist Version](https://img.shields.io/packagist/v/kielabokkie/laravel-conceal.svg?style=flat-square)](https://packagist.org/packages/kielabokkie/laravel-conceal)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This package allows you to conceal sensitive data in arrays and collections.
+This package allows you to conceal sensitive data in arrays and collections. It works with Laravel 5.7 or higher.
 
 Once installed you can do things like this:
 
