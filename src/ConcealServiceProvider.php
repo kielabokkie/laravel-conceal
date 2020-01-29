@@ -3,6 +3,7 @@
 namespace Kielabokkie\LaravelConceal;
 
 use Illuminate\Support\ServiceProvider;
+use Kielabokkie\LaravelConceal\Concealer;
 
 class ConcealServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,12 @@ class ConcealServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge the custom config with the package one
         $this->mergeConfigFrom(__DIR__.'/../config/conceal.php', 'conceal');
+
+        // Setup the facade
+        $this->app->bind('concealer', function ($app) {
+            return new Concealer;
+        });
     }
 }

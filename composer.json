@@ -33,7 +33,10 @@
         "laravel": {
             "providers": [
                 "Kielabokkie\\LaravelConceal\\ConcealServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Concealer": "Kielabokkie\\LaravelConceal\\Facades\\Concealer"
+            }
         }
     }
 }

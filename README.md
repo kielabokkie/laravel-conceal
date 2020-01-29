@@ -5,29 +5,28 @@
 [![Packagist Version](https://img.shields.io/packagist/v/kielabokkie/laravel-conceal.svg?style=flat-square)](https://packagist.org/packages/kielabokkie/laravel-conceal)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This package allows you to conceal sensitive data in arrays and collections. It works with Laravel 5.7 or higher.
+This package allows you to conceal sensitive data in arrays and collections. This is particularly useful when writing possibly sensitive data to log files.
 
 Once installed you can do things like this:
 
 ```php
 $data = [
     'username' => 'wouter',
-    'password' => 'secret'
+    'api_key' => 'secret'
 ];
 
-$hide = ['password'];
+$hide = ['api_key'];
 
 $output = conceal($data, $hide);
+print_r($output);
+
+// Outputs: ['username' => 'wouter', 'api_key' => '********']
 ```
 
-Which will return the array with the password concealed:
+## Requirements
 
-```php
-[
-    'username' => 'wouter',
-    'password' => '********'
-]
-```
+* PHP >= 7.1
+* Laravel 5.7+ | 6
 
 ## Installation
 
@@ -61,7 +60,7 @@ return [
 
 ## Usage
 
-Use the defaults configuration to conceal the password:
+Use the default configuration to conceal the password:
 
 ```php
 $data = [
@@ -88,4 +87,21 @@ $output = conceal($data, $hide);
 print_r($output);
 
 // Outputs: ['api_key' => '********']
+```
+
+### Facade
+
+The examples above use the `conceal()` helper function. If Facades are more your thing you can use that instead:
+
+```php
+use Kielabokkie\LaravelConceal\Facades\Concealer;
+
+$data = [
+    'password' => 'secret'
+];
+
+$output = Concealer::conceal($data);
+print_r($output);
+
+// Outputs: ['password' => '********']
 ```
