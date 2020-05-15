@@ -14,7 +14,7 @@ final class HelperTest extends TestCase
     {
         $data = [
             'username' => 'wouter',
-            'password' => 'secret'
+            'password' => 'secret',
         ];
 
         $output = conceal($data);

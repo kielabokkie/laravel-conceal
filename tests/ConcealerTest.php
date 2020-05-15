@@ -41,7 +41,7 @@ final class ConcealerTest extends TestCase
     {
         $data = [
             'username' => 'wouter',
-            'apikey' => 'secret'
+            'apikey' => 'secret',
         ];
 
         $hide = ['apikey'];
@@ -57,7 +57,7 @@ final class ConcealerTest extends TestCase
     {
         $data = [
             'username' => 'wouter',
-            'password' => 'secret'
+            'password' => 'secret',
         ];
 
         $hide = ['password'];
@@ -73,7 +73,7 @@ final class ConcealerTest extends TestCase
     {
         $data = new Collection([
             'username' => 'wouter',
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         $output = $this->concealer->conceal($data);
@@ -83,10 +83,101 @@ final class ConcealerTest extends TestCase
     }
 
     /** @test */
+    public function it_conceals_multidimensional_collections(): void
+    {
+        $sub = new Collection([
+            'username' => 'wouter',
+            'password' => 'secret',
+        ]);
+
+        $data = new Collection([
+            'username' => 'wouter',
+            'password' => 'secret',
+            'single' => $sub,
+            'multi' => new Collection([
+                'test' => $sub,
+            ]),
+        ]);
+
+        $output = $this->concealer->conceal($data);
+
+        $this->assertEquals('wouter', $output['username']);
+        $this->assertEquals('********', $output['password']);
+        $this->assertEquals('wouter', $output['single']['username']);
+        $this->assertEquals('********', $output['single']['password']);
+        $this->assertEquals('wouter', $output['multi']['test']['username']);
+        $this->assertEquals('********', $output['multi']['test']['password']);
+    }
+
+    /** @test */
+    public function it_conceals_multidimensional_arrays(): void
+    {
+        $sub = [
+            'username' => 'wouter',
+            'password' => 'secret',
+        ];
+
+        $data = [
+            'username' => 'wouter',
+            'password' => 'secret',
+            'single' => $sub,
+            'multi' => [
+                'test' => $sub,
+            ],
+        ];
+
+        $output = $this->concealer->conceal($data);
+
+        $this->assertEquals('wouter', $output['username']);
+        $this->assertEquals('********', $output['password']);
+        $this->assertEquals('wouter', $output['single']['username']);
+        $this->assertEquals('********', $output['single']['password']);
+        $this->assertEquals('wouter', $output['multi']['test']['username']);
+        $this->assertEquals('********', $output['multi']['test']['password']);
+    }
+
+    /** @test */
+    public function it_conceals_mixed_objecs(): void
+    {
+        $sub = [
+            'username' => 'wouter',
+            'password' => 'secret',
+        ];
+
+        $data = [
+            'username' => 'wouter',
+            'password' => 'secret',
+            'array' => [
+                'array' => $sub,
+                'collection' => new Collection($sub),
+            ],
+            'collection' => new Collection([
+                'array' => $sub,
+                'collection' => new Collection($sub),
+            ]),
+        ];
+
+        $output = $this->concealer->conceal($data);
+
+        $this->assertEquals('wouter', $output['username']);
+        $this->assertEquals('********', $output['password']);
+        // Arrays and collection inside an array
+        $this->assertEquals('wouter', $output['array']['array']['username']);
+        $this->assertEquals('********', $output['array']['array']['password']);
+        $this->assertEquals('wouter', $output['array']['collection']['username']);
+        $this->assertEquals('********', $output['array']['collection']['password']);
+        // Arrays and collection inside a collection
+        $this->assertEquals('wouter', $output['collection']['array']['username']);
+        $this->assertEquals('********', $output['collection']['array']['password']);
+        $this->assertEquals('wouter', $output['collection']['collection']['username']);
+        $this->assertEquals('********', $output['collection']['collection']['password']);
+    }
+
+    /** @test */
     public function it_returns_an_array_if_array_is_given(): void
     {
         $data = [
-            'password' => 'secret'
+            'password' => 'secret',
         ];
 
         $output = $this->concealer->conceal($data);
@@ -99,7 +190,7 @@ final class ConcealerTest extends TestCase
     public function it_returns_a_collection_if_collection_is_given(): void
     {
         $data = new Collection([
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         $output = $this->concealer->conceal($data);

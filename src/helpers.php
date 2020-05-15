@@ -2,7 +2,7 @@
 
 use Kielabokkie\LaravelConceal\Concealer;
 
-if (! function_exists('conceal')) {
+if (!function_exists('conceal')) {
     /**
      * Conceal given keys or an Array or Collection.
      *

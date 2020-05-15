@@ -15,7 +15,7 @@ final class FacadeTest extends TestCase
     {
         $data = [
             'username' => 'wouter',
-            'password' => 'secret'
+            'password' => 'secret',
         ];
 
         $output = Concealer::conceal($data);
