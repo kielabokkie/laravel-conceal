@@ -16,7 +16,7 @@ class ConcealServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/conceal.php' => config_path('conceal.php'),
+                __DIR__ . '/../config/conceal.php' => config_path('conceal.php'),
             ], 'config');
         }
     }
@@ -29,7 +29,7 @@ class ConcealServiceProvider extends ServiceProvider
     public function register()
     {
         // Merge the custom config with the package one
-        $this->mergeConfigFrom(__DIR__.'/../config/conceal.php', 'conceal');
+        $this->mergeConfigFrom(__DIR__ . '/../config/conceal.php', 'conceal');
 
         // Setup the facade
         $this->app->bind('concealer', function ($app) {

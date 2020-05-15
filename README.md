@@ -26,7 +26,7 @@ print_r($output);
 ## Requirements
 
 * PHP >= 7.1
-* Laravel 5.7+ | 6
+* Laravel 5.7+ | 6 | 7
 
 ## Installation
 
@@ -81,12 +81,40 @@ $data = [
     'api_key' => 'secret'
 ];
 
-$hide = ['api_key'];
-
-$output = conceal($data, $hide);
+$output = conceal($data, ['api_key']);
 print_r($output);
 
 // Outputs: ['api_key' => '********']
+```
+
+Everything works exactly the same for collections:
+
+```php
+$data = new Collection([
+    'username' => 'wouter',
+    'password' => 'secret'
+]);
+
+$output = conceal($data);
+print_r($output->toArray());
+
+// Outputs: ['username' => 'wouter', 'password' => '********']
+```
+
+And last but not least, it works recursively too:
+
+```php
+$data = [
+    'password' => 'secret',
+    'nextlevel' => [
+        'password' => 'secret',
+    ]
+];
+
+$output = conceal($data);
+print_r($output);
+
+// Outputs: ['password' => '********', 'nextlevel' => ['password' => '********']]
 ```
 
 ### Facade

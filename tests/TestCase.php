@@ -15,13 +15,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            ConcealServiceProvider::class
+            ConcealServiceProvider::class,
         ];
     }
 
-    protected function getPackageAliases($app) {
+    protected function getPackageAliases($app)
+    {
         return [
-            'config' => Repository::class
+            'config' => Repository::class,
         ];
     }
 }
