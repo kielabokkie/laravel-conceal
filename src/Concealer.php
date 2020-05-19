@@ -3,6 +3,7 @@
 namespace Kielabokkie\LaravelConceal;
 
 use Illuminate\Support\Collection;
+use Kielabokkie\LaravelConceal\Exceptions\NotSupportedException;
 
 class Concealer
 {
@@ -35,7 +36,7 @@ class Concealer
             return $output;
         }
 
-        throw new \Exception('Only Collections or Arrays are supported');
+        throw new NotSupportedException;
     }
 
     /**
@@ -47,8 +48,8 @@ class Concealer
     private function handleCollection($input)
     {
         $output = $input->map(function ($item, $key) {
-            if (is_string($item) === true) {
-                return $this->handleString($key, $item);
+            if (in_array($key, $this->keys) === true) {
+                return $input[$key] = '********';
             }
 
             if ($item instanceof Collection) {
@@ -74,36 +75,22 @@ class Concealer
     private function handleArray($input)
     {
         foreach ($input as $key => $item) {
-            if (is_string($item) === true) {
-                $input[$key] = $this->handleString($key, $item);
+            if (in_array($key, $this->keys) === true) {
+                $input[$key] = '********';
+                continue;
             }
 
             if (is_array($item) === true) {
                 $input[$key] = $this->handleArray($item);
+                continue;
             }
 
             if ($item instanceof Collection) {
                 $input[$key] = $this->handleCollection($item);
+                continue;
             }
         }
 
         return $input;
-    }
-
-    /**
-     * Return concealed string if the key matches one of keys to be concealed.
-     *
-     * @param string $key
-     * @param string $value
-     * @return string
-     */
-    private function handleString($key, $value)
-    {
-        // If the key is
-        if (in_array($key, $this->keys) === true) {
-            return '********';
-        }
-
-        return $value;
     }
 }
