@@ -4,6 +4,7 @@ namespace Kielabokkie\LaravelConceal\Tests;
 
 use Illuminate\Support\Collection;
 use Kielabokkie\LaravelConceal\Concealer;
+use Kielabokkie\LaravelConceal\Exceptions\NotSupportedException;
 use Kielabokkie\LaravelConceal\Tests\TestCase;
 
 /**
@@ -174,6 +175,40 @@ final class ConcealerTest extends TestCase
     }
 
     /** @test */
+    public function it_handles_numeric_keys_for_arrays(): void
+    {
+        $data = [
+            'username' => 'wouter',
+            'password' => [
+                'test',
+                'secret',
+            ]
+        ];
+
+        $output = $this->concealer->conceal($data);
+
+        $this->assertEquals('wouter', $output['username']);
+        $this->assertEquals('********', $output['password']);
+    }
+
+    /** @test */
+    public function it_handles_numeric_keys_for_collections(): void
+    {
+        $data = new Collection([
+            'username' => 'wouter',
+            'password' => new Collection([
+                'test',
+                'secret',
+            ])
+        ]);
+
+        $output = $this->concealer->conceal($data);
+
+        $this->assertEquals('wouter', $output['username']);
+        $this->assertEquals('********', $output['password']);
+    }
+
+    /** @test */
     public function it_returns_an_array_if_array_is_given(): void
     {
         $data = [
@@ -197,5 +232,13 @@ final class ConcealerTest extends TestCase
 
         // Input was a collection so output should be too
         $this->assertInstanceOf(Collection::class, $output);
+    }
+
+    /** @test */
+    public function it_throws_an_exception_for_non_supported_types(): void
+    {
+        $this->expectException(NotSupportedException::class);
+
+        $this->concealer->conceal('password');
     }
 }
