@@ -48,7 +48,7 @@ class Concealer
     private function handleCollection($input)
     {
         $output = $input->map(function ($item, $key) {
-            if (in_array($key, $this->keys) === true) {
+            if (in_array($key, $this->keys, true) === true) {
                 return $input[$key] = '********';
             }
 
@@ -75,7 +75,7 @@ class Concealer
     private function handleArray($input)
     {
         foreach ($input as $key => $item) {
-            if (in_array($key, $this->keys) === true) {
+            if (in_array($key, $this->keys, true) === true) {
                 $input[$key] = '********';
                 continue;
             }
