@@ -199,13 +199,25 @@ final class ConcealerTest extends TestCase
             'password' => new Collection([
                 'test',
                 'secret',
-            ])
+            ]),
+            'test' => new Collection([
+                'test',
+                'secret',
+            ]),
+            'test2' => [
+                'test',
+                'secret',
+            ]
         ]);
 
         $output = $this->concealer->conceal($data);
 
         $this->assertEquals('wouter', $output['username']);
         $this->assertEquals('********', $output['password']);
+        $this->assertEquals('test', $output['test'][0]);
+        $this->assertEquals('secret', $output['test'][1]);
+        $this->assertEquals('test', $output['test2'][0]);
+        $this->assertEquals('secret', $output['test2'][1]);
     }
 
     /** @test */
