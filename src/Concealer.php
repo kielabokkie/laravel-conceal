@@ -24,7 +24,9 @@ class Concealer
     public function conceal($input, array $keys = [])
     {
         // Merge default keys with given keys
-        $this->keys = array_unique(array_merge(config('conceal.defaults'), $keys));
+        $this->keys = array_unique(
+            array_merge(config('conceal.defaults', []), $keys)
+        );
 
         if ($input instanceof Collection) {
             $output = $this->handleCollection($input);
