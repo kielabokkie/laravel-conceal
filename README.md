@@ -25,8 +25,8 @@ print_r($output);
 
 ## Requirements
 
-* PHP >= 7.1
-* Laravel 5.7+ | 6 | 7
+* PHP >= 7.2
+* Laravel 5.7+ | 6 | 7 | 8
 
 ## Installation
 
